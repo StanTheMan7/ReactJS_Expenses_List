@@ -66,7 +66,16 @@ const ExpenseFrom = () => {
     }
     const submitHandler = (event) => {
         event.preventDefault();
-    }
+        const expenseData = {
+            title: enteredTitle,
+            amount: enteredAmount,
+            date: new Date(enteredDate)
+        };
+        console.log(expenseData)
+        setEnteredTitle('');
+        setEnteredAmount('');
+        setEnteredDate('');
+    };
 return (
 
 <form onSubmit={submitHandler}>
@@ -75,13 +84,13 @@ return (
             <label>Title </label>
             {/* i learned also that i can add listeners on a element where i want to add listener for example on this input bellow by adding a prop that starts with 'on' and then on witch event you wanna listen */}
             {/* Now we could listen to onInput  and therefore react to basically every keystroke, but there is also the just onChange event witch basically does the same , it wil also trigger on every keystroke, but the advantage pf the onChange event is that we can use the same event for all inputs types for example all the four Dropdowns*/}
-            <input type="text " onChange={titleChangeHandler}/>
+            <input type="text " value={enteredTitle} onChange={titleChangeHandler}/>
         </div>
 
 
         <div className="new-expense__control">
             <label>Amount</label>
-            <input type="number" min="0.01"  step="0.01" onChange={amountChangeHandler} />
+            <input type="number" min="0.01"  step="0.01" value={enteredAmount} onChange={amountChangeHandler} />
         </div>
         <div className="new-expense__control">
             <label>Date</label>
@@ -89,7 +98,7 @@ return (
 
             {/* we put a min and max date cause later we also want to add a filter where we only provide the years 2019 to 2022 for filtering   */}
             
-            <input type="date" min="2019-01-01" max="2022-12-31" onChange={dateChangeHandler}/>
+            <input type="date" min="2019-01-01" max="2022-12-31" value={enteredDate} onChange={dateChangeHandler}/>
         </div>
 
         {/* now that we got all our inputs we now also need a button to submit the form*/}
