@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import './ExpenseForm.css';
 
 
-const ExpenseFrom = () => {
+const ExpenseFrom = (props) => {
     // my States   slices good to know that you CAN have multiple states for a single component they will work without affecting the others states , and in all 3 states we just store some user input  
     const [enteredTitle, setEnteredTitle] = useState('');
     const [enteredAmount, setEnteredAmount] = useState('');
@@ -66,12 +66,15 @@ const ExpenseFrom = () => {
     }
     const submitHandler = (event) => {
         event.preventDefault();
+        // gathering the user inputs 
         const expenseData = {
             title: enteredTitle,
             amount: enteredAmount,
             date: new Date(enteredDate)
         };
-        console.log(expenseData)
+
+        props.onSaveExpenseData(expenseData);
+        // and changing the vvalue 
         setEnteredTitle('');
         setEnteredAmount('');
         setEnteredDate('');
@@ -79,7 +82,7 @@ const ExpenseFrom = () => {
 return (
 
 <form onSubmit={submitHandler}>
-    <div className="new-expense__controls">
+    <div className="new-expense__controls">-
         <div className="new-expense__control">
             <label>Title </label>
             {/* i learned also that i can add listeners on a element where i want to add listener for example on this input bellow by adding a prop that starts with 'on' and then on witch event you wanna listen */}
